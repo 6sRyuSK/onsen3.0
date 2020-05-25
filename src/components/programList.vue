@@ -1,7 +1,7 @@
 <template>
   <div id="program-list" class="w-full">
     <div id="pl-container" class="flex flex-wrap w-full">
-      <div class="pl-item w-3/12 p-1" v-for="item in programs" v-bind:key="item.url">
+      <div class="pl-item w-3/12 p-1" v-for="item in programs" v-bind:key="item.url" @click="() => onClickItem(item.url)">
         <img class="pl-item-img" :src="item.thumbnailPath" />
       </div>
     </div>
@@ -13,6 +13,9 @@ export default {
   name: 'programList',
   computed: {
     programs () { return this.$store.state.programs }
+  },
+  methods: {
+    onClickItem (id) { this.$store.dispatch('setPlaying', id) }
   }
 }
 </script>
