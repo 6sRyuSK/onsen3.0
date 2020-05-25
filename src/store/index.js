@@ -23,6 +23,9 @@ export default new Vuex.Store({
     }),
     setPlaying: ({ commit }, payload) => commit('setPlaying', payload)
   },
+  getters: {
+    getPlaying: state => state.programs.find(obj => obj.url === state.playing)
+  },
   modules: {
   }
 })
