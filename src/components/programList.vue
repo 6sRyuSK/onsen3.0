@@ -11,11 +11,8 @@
 <script>
 export default {
   name: 'programList',
-  props: {
-    programs: Array
-  },
-  created () {
-    console.log(this.programs)
+  computed: {
+    programs () { return this.$store.state.programs }
   }
 }
 </script>

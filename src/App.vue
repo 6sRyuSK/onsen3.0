@@ -8,7 +8,7 @@
     </nav>
     <div id="app-content">
       <div id="side-bar" class="bg-teal-600"></div>
-      <program-list :programs='programs' v-if="programs.length != 0"></program-list>
+      <program-list v-if="showProgramList"></program-list>
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   },
   data () {
     return {
-      programs: []
+      showProgramList: false
     }
   },
   apollo: {
@@ -36,8 +36,8 @@ export default {
           return obj
         })
         const filtered = map.filter(obj => obj)
-        this.programs = filtered.sort((a, b) => a.update < b.update ? 1 : -1)
-        console.log(this.programs)
+        const sorted = filtered.sort((a, b) => a.update < b.update ? 1 : -1)
+        this.showProgramList = this.$store.dispatch('setPrograms', sorted).then(() => true)
       }
     }
   }
