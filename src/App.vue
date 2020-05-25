@@ -7,14 +7,40 @@
       </div>
     </nav>
     <div id="app-content">
-      <section id="side-bar" class="w-1/6 h-full bg-teal-600"></section>
+      <div id="side-bar" class="bg-teal-600"></div>
+      <program-list :programs='programs' v-if="programs.length != 0"></program-list>
     </div>
   </div>
 </template>
 
 <script>
+import { ALL_PROGRAM } from './constants/program'
+import programList from './components/programList'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    programList
+  },
+  data () {
+    return {
+      programs: []
+    }
+  },
+  apollo: {
+    programs: {
+      query: ALL_PROGRAM,
+      result (val) {
+        const map = val.data.programs.map(obj => {
+          if (!obj.update || !obj.moviePath) return
+          obj.update = new Date(obj.update)
+          return obj
+        })
+        const filtered = map.filter(obj => obj)
+        this.programs = filtered.sort((a, b) => a.update < b.update ? 1 : -1)
+        console.log(this.programs)
+      }
+    }
+  }
 }
 </script>
 
@@ -24,11 +50,14 @@ export default {
   top: 0;
 }
 #app-content {
+  display: flex;
+  flex-direction: row;
+  height: calc(100% - 80px);
   #side-bar {
-    max-height: calc(100% - 80px);
-    position: fixed;
-    left: 0;
-    bottom: 0;
+    display: block;
+    width: 30%;
+    height: 100%;
+    margin: 0;
   }
 }
 </style>
