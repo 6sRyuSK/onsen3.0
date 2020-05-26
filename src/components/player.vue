@@ -12,7 +12,7 @@
         </div>
       </div>
       <div id="controll-panel " class="w-4/12 flex justify-center">
-        <div class="play-button flex items-center select-none" @click="clickPlay"><i class="material-icons play-icon">{{ isPlaying ? 'play_arrow' : 'pause'}}</i></div>
+        <div class="play-button flex items-center select-none" @click="clickPlay"><i class="material-icons play-icon">{{ isPlaying ? 'pause' : 'play_arrow'}}</i></div>
       </div>
       <div id="volume-controll" class="w-4/12"></div>
     </div>
